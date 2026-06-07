@@ -2,6 +2,8 @@ package com.example.katalogchordpiano
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
@@ -42,6 +44,9 @@ class MainActivity : AppCompatActivity() {
         Chord("B Minor", "B - D - F#", "Minor", R.drawable.b_minor, R.raw.b_minor)
     )
 
+    // List yang digunakan untuk tampilan (bisa difilter)
+    private var displayList = ArrayList<Chord>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
@@ -54,39 +59,36 @@ class MainActivity : AppCompatActivity() {
             btnZA = findViewById(R.id.btnZA)
             listChord = findViewById(R.id.listChord)
 
+            // Inisialisasi list tampilan dengan data awal
+            displayList.addAll(chordList)
+
             setupListView()
 
+            // Menambahkan TextWatcher untuk pencarian real-time
+            etSearch.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    filterChord(s.toString())
+                }
+                override fun afterTextChanged(s: Editable?) {}
+            })
+
             listChord.setOnItemClickListener { _, _, position, _ ->
-                Log.i(TAG, "MainActivity: Item diklik pada posisi $position")
-                bukaDetail(position)
+                val selectedChord = displayList[position]
+                // Cari indeks chord asli di chordList untuk dikirim ke DetailActivity
+                val originalIndex = chordList.indexOfFirst { it.nama == selectedChord.nama }
+                Log.i(TAG, "MainActivity: Chord ${selectedChord.nama} diklik")
+                bukaDetail(originalIndex)
             }
 
             btnCari.setOnClickListener {
-                try {
-                    val input = etSearch.text.toString().trim()
-                    Log.d(TAG, "MainActivity: Mencari chord '$input'")
-                    if (input.isEmpty()) {
-                        Toast.makeText(this, "Please enter a chord name", Toast.LENGTH_SHORT).show()
-                        return@setOnClickListener
-                    }
-
-                    val index = chordList.indexOfFirst { it.nama.equals(input, true) }
-                    if (index != -1) {
-                        Log.i(TAG, "MainActivity: Chord ditemukan: ${chordList[index].nama}")
-                        bukaDetail(index)
-                    } else {
-                        Log.w(TAG, "MainActivity: Chord '$input' tidak ditemukan")
-                        Toast.makeText(this, "Chord not found", Toast.LENGTH_SHORT).show()
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "MainActivity: Kesalahan saat pencarian - ${e.message}")
-                }
+                filterChord(etSearch.text.toString())
             }
 
             btnAZ.setOnClickListener {
                 try {
                     Log.d(TAG, "MainActivity: Mengurutkan A-Z")
-                    chordList.sortBy { it.nama }
+                    displayList.sortBy { it.nama }
                     adapter.notifyDataSetChanged()
                     Toast.makeText(this, "Sorted A-Z", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             btnZA.setOnClickListener {
                 try {
                     Log.d(TAG, "MainActivity: Mengurutkan Z-A")
-                    chordList.sortByDescending { it.nama }
+                    displayList.sortByDescending { it.nama }
                     adapter.notifyDataSetChanged()
                     Toast.makeText(this, "Sorted Z-A", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
@@ -112,11 +114,31 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListView() {
         try {
-            adapter = ChordAdapter(this, chordList)
+            // Gunakan displayList agar ListView mengikuti hasil filter
+            adapter = ChordAdapter(this, displayList)
             listChord.adapter = adapter
             Log.d(TAG, "MainActivity: ListView berhasil dikonfigurasi")
         } catch (e: Exception) {
             Log.e(TAG, "MainActivity: Error setup ListView - ${e.message}")
+        }
+    }
+
+    private fun filterChord(query: String) {
+        try {
+            displayList.clear()
+            if (query.isEmpty()) {
+                displayList.addAll(chordList)
+                Log.d(TAG, "MainActivity: Filter kosong, menampilkan semua data")
+            } else {
+                val filterResults = chordList.filter { 
+                    it.nama.contains(query, ignoreCase = true) 
+                }
+                displayList.addAll(filterResults)
+                Log.d(TAG, "MainActivity: Filtering selesai, ditemukan ${filterResults.size} hasil")
+            }
+            adapter.notifyDataSetChanged()
+        } catch (e: Exception) {
+            Log.e(TAG, "MainActivity: Gagal memfilter chord - ${e.message}")
         }
     }
 
