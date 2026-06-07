@@ -1,11 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="bg">#F8F4ED</color>
-
-    <color name="primary">#5B4636</color>
-
+    <color name="bg">#F1F5F9</color>
     <color name="card">#FFFFFF</color>
-
-    <color name="accent">#C88D3A</color>
-
+    <color name="primary">#0F172A</color>
+    <color name="primary_light">#334155</color>
+    <color name="accent">#3B82F6</color>
+    <color name="text_main">#1E293B</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="major_tag">#DCFCE7</color>
+    <color name="major_text">#166534</color>
+    <color name="minor_tag">#FEE2E2</color>
+    <color name="minor_text">#991B1B</color>
 </resources>

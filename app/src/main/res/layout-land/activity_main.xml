@@ -1,61 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:background="@color/bg"
     android:padding="16dp">
 
-    <!-- KIRI -->
+    <!-- Left side: Header and Search -->
     <LinearLayout
+        android:id="@+id/headerGroup"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/searchContainer"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
+            android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🎹 Katalog Chord Piano"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:text="Piano Chords"
+            android:textColor="@color/primary"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSubHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Learn and play your favorite chords"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/card_bg"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/sortContainer"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerGroup">
 
         <EditText
             android:id="@+id/etSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Cari chord"/>
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Search chord..."
+            android:paddingHorizontal="12dp"
+            android:textSize="14sp"
+            android:textColor="@color/text_main"
+            android:singleLine="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnCari"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cari"
-            android:layout_marginTop="10dp"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_search"
+            app:tint="@color/accent" />
     </LinearLayout>
 
-    <!-- KANAN -->
     <LinearLayout
+        android:id="@+id/sortContainer"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingStart="16dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer">
 
         <Button
-            android:id="@+id/btnCMajor"
-            android:layout_width="match_parent"
+            android:id="@+id/btnAZ"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="C Major"/>
+            android:layout_weight="1"
+            android:text="A - Z"
+            android:textColor="@color/accent"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnCMinor"
-            android:layout_width="match_parent"
+            android:id="@+id/btnZA"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="C Minor"
-            android:layout_marginTop="10dp"/>
-
+            android:layout_weight="1"
+            android:text="Z - A"
+            android:textColor="@color/accent"
+            android:textStyle="bold" />
     </LinearLayout>
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <!-- Right side: List -->
+    <ListView
+        android:id="@+id/listChord"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@android:layout/simple_list_item_1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

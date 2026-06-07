@@ -1,81 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@color/bg">
-
-    <!-- TITLE -->
+    android:background="@color/bg"
+    android:padding="24dp">
 
     <TextView
+        android:id="@+id/tvHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🎹 Katalog Chord Piano"
-        android:textSize="28sp"
+        android:text="Piano Chords"
+        android:textColor="@color/primary"
+        android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="@color/primary"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvSubHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Katalog Chord Major &amp; Minor"
+        android:text="Learn and play your favorite chords"
+        android:textColor="@color/text_secondary"
         android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="20dp"/>
-
-    <!-- SEARCH -->
-
-    <EditText
-        android:id="@+id/etSearch"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Cari chord..."
-        android:padding="12dp"
-        android:backgroundTint="@color/accent"/>
-
-    <Button
-        android:id="@+id/btnCari"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:text="Cari"
-        android:layout_marginTop="12dp"/>
-
-    <!-- SORT -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader" />
 
     <LinearLayout
+        android:id="@+id/searchContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/card_bg"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubHeader">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Search chord (e.g. C Major)"
+            android:paddingHorizontal="16dp"
+            android:textSize="15sp"
+            android:textColor="@color/text_main"/>
+
+        <ImageButton
+            android:id="@+id/btnCari"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_search"
+            app:tint="@color/accent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sortContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:layout_marginTop="12dp">
+        app:layout_constraintTop_toBottomOf="@id/searchContainer">
 
         <Button
             android:id="@+id/btnAZ"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A-Z"/>
+            android:text="A - Z"
+            android:textColor="@color/accent"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnZA"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:text="Z-A"/>
-
+            android:text="Z - A"
+            android:textColor="@color/accent"
+            android:textStyle="bold" />
     </LinearLayout>
-
-    <!-- LIST CHORD -->
 
     <ListView
         android:id="@+id/listChord"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="20dp"
-        android:dividerHeight="8dp"/>
+        android:layout_marginTop="8dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="12dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sortContainer"
+        tools:listitem="@android:layout/simple_list_item_1" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

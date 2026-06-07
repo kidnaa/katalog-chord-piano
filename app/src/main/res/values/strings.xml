@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KatalogChordPiano</string>
+    <string name="play_chord">Play Chord</string>
 </resources>

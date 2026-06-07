@@ -1,61 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
     android:background="@color/bg">
+
+    <!-- Header -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/abc_ic_ab_back_material"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primary" />
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:gravity="center"
+        android:text="C Major"
+        android:textColor="@color/primary"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/primary"/>
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <ImageButton
-            android:id="@+id/btnPrev"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_previous"/>
+    <!-- Chord Image Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack">
 
         <ImageView
             android:id="@+id/imgChord"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/c_major" />
+    </androidx.cardview.widget.CardView>
 
-        <ImageButton
-            android:id="@+id/btnNext"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_next"/>
+    <!-- Navigation Buttons -->
+    <ImageButton
+        android:id="@+id/btnPrev"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_media_previous"
+        app:layout_constraintBottom_toBottomOf="@id/cardImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cardImage"
+        app:tint="@color/primary_light" />
 
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_media_next"
+        app:layout_constraintBottom_toBottomOf="@id/cardImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cardImage"
+        app:tint="@color/primary_light" />
+
+    <!-- Info Section -->
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/tag_bg_major"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="8dp"
+        android:text="Major Chord"
+        android:textColor="@color/major_text"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardImage" />
+
+    <TextView
+        android:id="@+id/tvNotesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Notes in this chord:"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:textAllCaps="true"
+        android:letterSpacing="0.1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvType" />
 
     <TextView
         android:id="@+id/tvNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:layout_marginTop="8dp"
+        android:text="C - E - G"
+        android:textColor="@color/primary"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNotesLabel" />
 
-    <TextView
-        android:id="@+id/tvType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginTop="12dp"/>
+    <!-- Play Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPlay"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_margin="32dp"
+        android:text="@string/play_chord"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:icon="@android:drawable/ic_media_play"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/accent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

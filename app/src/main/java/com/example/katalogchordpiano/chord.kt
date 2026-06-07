@@ -4,5 +4,6 @@ data class Chord(
     val nama: String,
     val notes: String,
     val type: String,
-    val image: Int
+    val image: Int,
+    val audio: Int
 )
